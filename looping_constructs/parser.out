@@ -1,0 +1,388 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> loop_statement
+Rule 1     loop_statement -> for_loop
+Rule 2     loop_statement -> while_loop
+Rule 3     for_loop -> FOR LPAREN assignment SEMICOLON condition SEMICOLON assignment RPAREN SEMICOLON
+Rule 4     while_loop -> WHILE LPAREN condition RPAREN SEMICOLON
+Rule 5     assignment -> IDENTIFIER ASSIGN expression
+Rule 6     condition -> expression LT expression
+Rule 7     condition -> expression GT expression
+Rule 8     expression -> IDENTIFIER
+Rule 9     expression -> NUMBER
+Rule 10    expression -> expression PLUS expression
+Rule 11    expression -> expression MINUS expression
+
+Terminals, with rules where they appear
+
+ASSIGN               : 5
+FOR                  : 3
+GT                   : 7
+IDENTIFIER           : 5 8
+LPAREN               : 3 4
+LT                   : 6
+MINUS                : 11
+NUMBER               : 9
+PLUS                 : 10
+RPAREN               : 3 4
+SEMICOLON            : 3 3 3 4
+WHILE                : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+assignment           : 3 3
+condition            : 3 4
+expression           : 5 6 6 7 7 10 10 11 11
+for_loop             : 1
+loop_statement       : 0
+while_loop           : 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . loop_statement
+    (1) loop_statement -> . for_loop
+    (2) loop_statement -> . while_loop
+    (3) for_loop -> . FOR LPAREN assignment SEMICOLON condition SEMICOLON assignment RPAREN SEMICOLON
+    (4) while_loop -> . WHILE LPAREN condition RPAREN SEMICOLON
+
+    FOR             shift and go to state 4
+    WHILE           shift and go to state 5
+
+    loop_statement                 shift and go to state 1
+    for_loop                       shift and go to state 2
+    while_loop                     shift and go to state 3
+
+state 1
+
+    (0) S' -> loop_statement .
+
+
+
+state 2
+
+    (1) loop_statement -> for_loop .
+
+    $end            reduce using rule 1 (loop_statement -> for_loop .)
+
+
+state 3
+
+    (2) loop_statement -> while_loop .
+
+    $end            reduce using rule 2 (loop_statement -> while_loop .)
+
+
+state 4
+
+    (3) for_loop -> FOR . LPAREN assignment SEMICOLON condition SEMICOLON assignment RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 6
+
+
+state 5
+
+    (4) while_loop -> WHILE . LPAREN condition RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 7
+
+
+state 6
+
+    (3) for_loop -> FOR LPAREN . assignment SEMICOLON condition SEMICOLON assignment RPAREN SEMICOLON
+    (5) assignment -> . IDENTIFIER ASSIGN expression
+
+    IDENTIFIER      shift and go to state 9
+
+    assignment                     shift and go to state 8
+
+state 7
+
+    (4) while_loop -> WHILE LPAREN . condition RPAREN SEMICOLON
+    (6) condition -> . expression LT expression
+    (7) condition -> . expression GT expression
+    (8) expression -> . IDENTIFIER
+    (9) expression -> . NUMBER
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+
+    IDENTIFIER      shift and go to state 12
+    NUMBER          shift and go to state 13
+
+    condition                      shift and go to state 10
+    expression                     shift and go to state 11
+
+state 8
+
+    (3) for_loop -> FOR LPAREN assignment . SEMICOLON condition SEMICOLON assignment RPAREN SEMICOLON
+
+    SEMICOLON       shift and go to state 14
+
+
+state 9
+
+    (5) assignment -> IDENTIFIER . ASSIGN expression
+
+    ASSIGN          shift and go to state 15
+
+
+state 10
+
+    (4) while_loop -> WHILE LPAREN condition . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 16
+
+
+state 11
+
+    (6) condition -> expression . LT expression
+    (7) condition -> expression . GT expression
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+
+    LT              shift and go to state 17
+    GT              shift and go to state 18
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
+
+
+state 12
+
+    (8) expression -> IDENTIFIER .
+
+    LT              reduce using rule 8 (expression -> IDENTIFIER .)
+    GT              reduce using rule 8 (expression -> IDENTIFIER .)
+    PLUS            reduce using rule 8 (expression -> IDENTIFIER .)
+    MINUS           reduce using rule 8 (expression -> IDENTIFIER .)
+    SEMICOLON       reduce using rule 8 (expression -> IDENTIFIER .)
+    RPAREN          reduce using rule 8 (expression -> IDENTIFIER .)
+
+
+state 13
+
+    (9) expression -> NUMBER .
+
+    LT              reduce using rule 9 (expression -> NUMBER .)
+    GT              reduce using rule 9 (expression -> NUMBER .)
+    PLUS            reduce using rule 9 (expression -> NUMBER .)
+    MINUS           reduce using rule 9 (expression -> NUMBER .)
+    SEMICOLON       reduce using rule 9 (expression -> NUMBER .)
+    RPAREN          reduce using rule 9 (expression -> NUMBER .)
+
+
+state 14
+
+    (3) for_loop -> FOR LPAREN assignment SEMICOLON . condition SEMICOLON assignment RPAREN SEMICOLON
+    (6) condition -> . expression LT expression
+    (7) condition -> . expression GT expression
+    (8) expression -> . IDENTIFIER
+    (9) expression -> . NUMBER
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+
+    IDENTIFIER      shift and go to state 12
+    NUMBER          shift and go to state 13
+
+    condition                      shift and go to state 21
+    expression                     shift and go to state 11
+
+state 15
+
+    (5) assignment -> IDENTIFIER ASSIGN . expression
+    (8) expression -> . IDENTIFIER
+    (9) expression -> . NUMBER
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+
+    IDENTIFIER      shift and go to state 12
+    NUMBER          shift and go to state 13
+
+    expression                     shift and go to state 22
+
+state 16
+
+    (4) while_loop -> WHILE LPAREN condition RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 23
+
+
+state 17
+
+    (6) condition -> expression LT . expression
+    (8) expression -> . IDENTIFIER
+    (9) expression -> . NUMBER
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+
+    IDENTIFIER      shift and go to state 12
+    NUMBER          shift and go to state 13
+
+    expression                     shift and go to state 24
+
+state 18
+
+    (7) condition -> expression GT . expression
+    (8) expression -> . IDENTIFIER
+    (9) expression -> . NUMBER
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+
+    IDENTIFIER      shift and go to state 12
+    NUMBER          shift and go to state 13
+
+    expression                     shift and go to state 25
+
+state 19
+
+    (10) expression -> expression PLUS . expression
+    (8) expression -> . IDENTIFIER
+    (9) expression -> . NUMBER
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+
+    IDENTIFIER      shift and go to state 12
+    NUMBER          shift and go to state 13
+
+    expression                     shift and go to state 26
+
+state 20
+
+    (11) expression -> expression MINUS . expression
+    (8) expression -> . IDENTIFIER
+    (9) expression -> . NUMBER
+    (10) expression -> . expression PLUS expression
+    (11) expression -> . expression MINUS expression
+
+    IDENTIFIER      shift and go to state 12
+    NUMBER          shift and go to state 13
+
+    expression                     shift and go to state 27
+
+state 21
+
+    (3) for_loop -> FOR LPAREN assignment SEMICOLON condition . SEMICOLON assignment RPAREN SEMICOLON
+
+    SEMICOLON       shift and go to state 28
+
+
+state 22
+
+    (5) assignment -> IDENTIFIER ASSIGN expression .
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+
+    SEMICOLON       reduce using rule 5 (assignment -> IDENTIFIER ASSIGN expression .)
+    RPAREN          reduce using rule 5 (assignment -> IDENTIFIER ASSIGN expression .)
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
+
+
+state 23
+
+    (4) while_loop -> WHILE LPAREN condition RPAREN SEMICOLON .
+
+    $end            reduce using rule 4 (while_loop -> WHILE LPAREN condition RPAREN SEMICOLON .)
+
+
+state 24
+
+    (6) condition -> expression LT expression .
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+
+    RPAREN          reduce using rule 6 (condition -> expression LT expression .)
+    SEMICOLON       reduce using rule 6 (condition -> expression LT expression .)
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
+
+
+state 25
+
+    (7) condition -> expression GT expression .
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+
+    RPAREN          reduce using rule 7 (condition -> expression GT expression .)
+    SEMICOLON       reduce using rule 7 (condition -> expression GT expression .)
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
+
+
+state 26
+
+    (10) expression -> expression PLUS expression .
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    LT              reduce using rule 10 (expression -> expression PLUS expression .)
+    GT              reduce using rule 10 (expression -> expression PLUS expression .)
+    SEMICOLON       reduce using rule 10 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 10 (expression -> expression PLUS expression .)
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
+
+  ! PLUS            [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+  ! MINUS           [ reduce using rule 10 (expression -> expression PLUS expression .) ]
+
+
+state 27
+
+    (11) expression -> expression MINUS expression .
+    (10) expression -> expression . PLUS expression
+    (11) expression -> expression . MINUS expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    LT              reduce using rule 11 (expression -> expression MINUS expression .)
+    GT              reduce using rule 11 (expression -> expression MINUS expression .)
+    SEMICOLON       reduce using rule 11 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 11 (expression -> expression MINUS expression .)
+    PLUS            shift and go to state 19
+    MINUS           shift and go to state 20
+
+  ! PLUS            [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+  ! MINUS           [ reduce using rule 11 (expression -> expression MINUS expression .) ]
+
+
+state 28
+
+    (3) for_loop -> FOR LPAREN assignment SEMICOLON condition SEMICOLON . assignment RPAREN SEMICOLON
+    (5) assignment -> . IDENTIFIER ASSIGN expression
+
+    IDENTIFIER      shift and go to state 9
+
+    assignment                     shift and go to state 29
+
+state 29
+
+    (3) for_loop -> FOR LPAREN assignment SEMICOLON condition SEMICOLON assignment . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 30
+
+
+state 30
+
+    (3) for_loop -> FOR LPAREN assignment SEMICOLON condition SEMICOLON assignment RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 31
+
+
+state 31
+
+    (3) for_loop -> FOR LPAREN assignment SEMICOLON condition SEMICOLON assignment RPAREN SEMICOLON .
+
+    $end            reduce using rule 3 (for_loop -> FOR LPAREN assignment SEMICOLON condition SEMICOLON assignment RPAREN SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PLUS in state 26 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 26 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 27 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 27 resolved as shift
